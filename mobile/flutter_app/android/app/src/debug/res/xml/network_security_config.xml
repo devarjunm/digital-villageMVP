@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DEBUG BUILDS ONLY (this file lives in src/debug/, so it replaces the strict
+  policy in src/main/ for the debug variant and is not part of a release APK).
+
+  A physical phone cannot reach the developer's machine at 10.0.2.2, and a LAN
+  address such as http://192.168.1.5:8000 is not knowable at build time, so in
+  debug builds cleartext HTTP is allowed to any host: that is the only way to
+  point a test device at a local backend without rebuilding.
+
+  Release builds keep the main policy: HTTPS everywhere, cleartext permitted
+  only for the emulator loopback aliases.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

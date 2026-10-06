@@ -1,0 +1,42 @@
+[project]
+name = "digital-village-backend"
+version = "0.1.0"
+description = "Digital Village API and background workers"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["alembic/versions", "notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4", "SIM", "RUF"]
+# RUF001/RUF002 flag "ambiguous" unicode that is deliberate here: `×` in the media
+# dimension limits and `−`/`–` in prose and formulas. Replacing them with ASCII
+# would make those strings wrong, so the rules are off rather than the content.
+ignore = ["E501", "B008", "SIM108", "RUF001", "RUF002"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "B011"]
+"**/__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "../tests"]
+# "." is the backend package root (app.*), ".." is the repository root, which
+# holds the `ai` and `genai` packages the API imports (providers, RAG, agents).
+pythonpath = [".", ".."]
+addopts = "-ra -q --strict-markers"
+markers = [
+  "postgres_only: requires a PostgreSQL database with pgvector",
+  "slow: long-running test",
+  "ml: requires ML artefacts or trains a small model",
+]
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+check_untyped_defs = true
+exclude = ["alembic/"]

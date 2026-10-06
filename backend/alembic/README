@@ -1,0 +1,8 @@
+Alembic migrations for Digital Village.
+
+    alembic -c backend/alembic.ini upgrade head     # apply
+    alembic -c backend/alembic.ini revision --autogenerate -m "message"
+    alembic -c backend/alembic.ini downgrade -1     # roll back one revision
+
+The first revision also enables the required PostgreSQL extensions
+(vector, pg_trgm) and creates the HNSW vector indexes.

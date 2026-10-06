@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Production traffic must be HTTPS. Cleartext is permitted only for the emulator
+  alias and localhost, which is how a developer reaches a backend running on the
+  same machine (see docs/mobile_release.md). A device pointing at a LAN address
+  over http:// must be given a `domain` entry below, or the request is blocked.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">127.0.0.1</domain>
+    </domain-config>
+</network-security-config>

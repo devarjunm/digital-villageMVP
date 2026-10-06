@@ -1,0 +1,12 @@
+# ---- Training / heavy inference dependencies (worker & ML jobs only) ----
+# Not needed to serve the API; installed for training pipelines, model
+# evaluation and the disease-detection worker.
+pandas>=2.2.3,<3.0
+mlflow>=2.17.2,<3.0
+matplotlib==3.9.3
+# CPU wheels are used by default so the image stays reasonable.
+# For GPU training install torch with the CUDA index URL instead.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
+torchvision==0.20.1
+opencv-python-headless==4.10.0.84
